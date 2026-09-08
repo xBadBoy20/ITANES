@@ -94,7 +94,8 @@ public class PlaceDataSeeder {
                     ));
 
                     repository.insertAll(places);
-                    Log.d(TAG, "PlaceDataSeeder: 5 lugares disponibles en Room");
+                    int finalCount = repository.getCount();
+                    Log.d(TAG, "PlaceDataSeeder: " + finalCount + " lugares disponibles en Room");
                 } else {
                     Log.d(TAG, "PlaceDataSeeder: La base de datos ya contiene registros.");
                 }
