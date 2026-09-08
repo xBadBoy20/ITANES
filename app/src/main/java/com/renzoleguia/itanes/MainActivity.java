@@ -27,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // NOTA: El botón 'buttonExplore' está definido en XML pero no requiere lógica
-        // de navegación en esta primera etapa.
+        // Navegación a PlacesActivity
+        findViewById(R.id.buttonExplore).setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, PlacesActivity.class);
+            startActivity(intent);
+        });
 
         // Inicialización de la base de datos y carga inicial de datos (Seeder)
         AppDatabase db = AppDatabase.getInstance(this);

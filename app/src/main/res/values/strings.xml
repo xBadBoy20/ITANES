@@ -4,4 +4,7 @@
     <string name="course_text">Trabajo Final - Desarrollo de Aplicaciones Móviles</string>
     <string name="places_count">5 puntos turísticos</string>
     <string name="button_explore">Explorar recorrido</string>
+
+    <string name="title_places_activity">Recorrido Cusco</string>
+    <string name="places_subtitle">5 lugares para descubrir</string>
 </resources>
