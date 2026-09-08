@@ -29,6 +29,10 @@ public class PlaceRepository {
         return placeDao.getPlaceById(id);
     }
 
+    public int getCount() {
+        return placeDao.getCount();
+    }
+
     public void deleteAll() {
         placeDao.deleteAll();
     }

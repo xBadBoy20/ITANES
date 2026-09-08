@@ -8,6 +8,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.renzoleguia.itanes.data.local.database.AppDatabase;
+import com.renzoleguia.itanes.data.local.seed.PlaceDataSeeder;
+import com.renzoleguia.itanes.data.repository.PlaceRepository;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,5 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         // NOTA: El botón 'buttonExplore' está definido en XML pero no requiere lógica
         // de navegación en esta primera etapa.
+
+        // Inicialización de la base de datos y carga inicial de datos (Seeder)
+        AppDatabase db = AppDatabase.getInstance(this);
+        PlaceRepository repository = new PlaceRepository(db.placeDao());
+        PlaceDataSeeder seeder = new PlaceDataSeeder(repository);
+        seeder.seedData();
     }
 }
