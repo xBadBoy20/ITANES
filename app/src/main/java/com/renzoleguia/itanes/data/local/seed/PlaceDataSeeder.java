@@ -45,7 +45,7 @@ public class PlaceDataSeeder {
                             2,
                             "Piedra de los 12 ángulos",
                             "Un elemento icónico de la arquitectura incaica.",
-                            "Se ubica a solo un par de cuadras de la plaza y es un elemento súper icónico para destacar como waypoint en la interfaz. Se dice que esta enorme piedra, de encaje perfecto, sostiene toda la estructura del antiguo muro de un palacio inca.",
+                            "Se ubica a solo un par de cuadras de la plaza y es un elemento súper icónico para destacar como un buen point en el lugar. Se dice que esta enorme piedra, de encaje perfecto, sostiene toda la estructura del antiguo muro de un palacio inca.",
                             "Calle Hatun Rumiyoc, Cuzco, Perú",
                             -13.5158,
                             -71.9765,
@@ -94,8 +94,7 @@ public class PlaceDataSeeder {
                     ));
 
                     repository.insertAll(places);
-                    int finalCount = repository.getCount();
-                    Log.d(TAG, "PlaceDataSeeder: " + finalCount + " lugares disponibles en Room");
+                    Log.d(TAG, "PlaceDataSeeder: 5 lugares disponibles en Room");
                 } else {
                     Log.d(TAG, "PlaceDataSeeder: La base de datos ya contiene registros.");
                 }

@@ -7,4 +7,14 @@
 
     <string name="title_places_activity">Recorrido Cusco</string>
     <string name="places_subtitle">5 lugares para descubrir</string>
+
+    <string name="error_invalid_id">ID de lugar no válido</string>
+    <string name="error_place_not_found">Lugar no encontrado</string>
+    <string name="place_image_description">Imagen del lugar turístico</string>
+    <string name="label_address">Dirección</string>
+    <string name="label_coordinates">Coordenadas</string>
+    <string name="coordinates_format">Lat: %1$.6f, Long: %2$.6f</string>
+    <string name="button_favorite">Guardar en favoritos</string>
+    <string name="button_share">Compartir</string>
+    <string name="button_map">Ver en mapa</string>
 </resources>

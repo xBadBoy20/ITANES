@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.renzoleguia.itanes.data.local.database.AppDatabase;
 import com.renzoleguia.itanes.data.local.entity.PlaceEntity;
 import com.renzoleguia.itanes.data.repository.PlaceRepository;
+import com.renzoleguia.itanes.ui.detail.PlaceDetailActivity;
 
+import android.content.Intent;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PlacesActivity extends AppCompatActivity {
+public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.OnPlaceClickListener {
 
+    public static final String EXTRA_PLACE_ID = "com.renzoleguia.itanes.EXTRA_PLACE_ID";
     private PlaceAdapter placeAdapter;
     private PlaceRepository repository;
     private ExecutorService executorService;
@@ -42,7 +45,7 @@ public class PlacesActivity extends AppCompatActivity {
 
         // Setup RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerViewPlaces);
-        placeAdapter = new PlaceAdapter();
+        placeAdapter = new PlaceAdapter(this);
         recyclerView.setAdapter(placeAdapter);
 
         // Fetch data
@@ -58,6 +61,13 @@ public class PlacesActivity extends AppCompatActivity {
                 placeAdapter.setPlaces(places);
             });
         });
+    }
+
+    @Override
+    public void onPlaceClick(int placeId) {
+        Intent intent = new Intent(this, PlaceDetailActivity.class);
+        intent.putExtra(EXTRA_PLACE_ID, placeId);
+        startActivity(intent);
     }
 
     @Override

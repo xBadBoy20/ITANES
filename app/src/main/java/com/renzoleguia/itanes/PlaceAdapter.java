@@ -18,6 +18,15 @@ import java.util.List;
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
 
     private final List<PlaceEntity> places = new ArrayList<>();
+    private final OnPlaceClickListener listener;
+
+    public interface OnPlaceClickListener {
+        void onPlaceClick(int placeId);
+    }
+
+    public PlaceAdapter(OnPlaceClickListener listener) {
+        this.listener = listener;
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void setPlaces(List<PlaceEntity> newPlaces) {
@@ -39,7 +48,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     @Override
     public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
         PlaceEntity place = places.get(position);
-        holder.bind(place);
+        holder.bind(place, listener);
     }
 
     @Override
@@ -60,10 +69,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
             textPlaceDescription = itemView.findViewById(R.id.textPlaceDescription);
         }
 
-        public void bind(PlaceEntity place) {
+        public void bind(PlaceEntity place, OnPlaceClickListener listener) {
             textPlaceName.setText(place.getName());
             textPlaceDescription.setText(place.getShortDescription());
             // Se utiliza el placeholder definido por defecto en el XML para imagePlace
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onPlaceClick(place.getId());
+                }
+            });
         }
     }
 }
