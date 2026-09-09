@@ -12,12 +12,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.renzoleguia.itanes.PlacesActivity;
 import com.renzoleguia.itanes.R;
 import com.renzoleguia.itanes.data.local.database.AppDatabase;
+import com.renzoleguia.itanes.data.local.entity.FavoriteEntity;
 import com.renzoleguia.itanes.data.local.entity.PlaceEntity;
+import com.renzoleguia.itanes.data.repository.FavoriteRepository;
 import com.renzoleguia.itanes.data.repository.PlaceRepository;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,6 +32,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
     private static final String TAG = "PlaceDetailActivity";
     
     private PlaceRepository repository;
+    private FavoriteRepository favoriteRepository;
     private ExecutorService executorService;
     
     private ImageView imageDetail;
@@ -38,6 +45,9 @@ public class PlaceDetailActivity extends AppCompatActivity {
     private Button buttonFavorite;
     private Button buttonShare;
     private Button buttonMap;
+
+    private int placeId;
+    private boolean isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +65,10 @@ public class PlaceDetailActivity extends AppCompatActivity {
         
         AppDatabase db = AppDatabase.getInstance(this);
         repository = new PlaceRepository(db.placeDao());
+        favoriteRepository = new FavoriteRepository(db.favoriteDao());
         executorService = Executors.newSingleThreadExecutor();
 
-        int placeId = getIntent().getIntExtra(PlacesActivity.EXTRA_PLACE_ID, -1);
+        placeId = getIntent().getIntExtra(PlacesActivity.EXTRA_PLACE_ID, -1);
         
         if (placeId == -1) {
             Toast.makeText(this, R.string.error_invalid_id, Toast.LENGTH_SHORT).show();
@@ -65,6 +76,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
             return;
         }
 
+        checkFavoriteStatus();
         loadPlaceDetail(placeId);
     }
 
@@ -80,7 +92,36 @@ public class PlaceDetailActivity extends AppCompatActivity {
         buttonShare = findViewById(R.id.buttonShare);
         buttonMap = findViewById(R.id.buttonMap);
         
-        // Los botones son únicamente visuales en esta tanda
+        buttonFavorite.setOnClickListener(v -> toggleFavorite());
+    }
+
+    private void checkFavoriteStatus() {
+        executorService.execute(() -> {
+            isFavorite = favoriteRepository.isFavorite(placeId);
+            runOnUiThread(this::updateFavoriteButton);
+        });
+    }
+
+    private void updateFavoriteButton() {
+        if (isFavorite) {
+            buttonFavorite.setText(R.string.button_unfavorite);
+        } else {
+            buttonFavorite.setText(R.string.button_favorite);
+        }
+    }
+
+    private void toggleFavorite() {
+        executorService.execute(() -> {
+            if (isFavorite) {
+                favoriteRepository.removeFavorite(placeId);
+                isFavorite = false;
+            } else {
+                String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                favoriteRepository.addFavorite(new FavoriteEntity(placeId, date));
+                isFavorite = true;
+            }
+            runOnUiThread(this::updateFavoriteButton);
+        });
     }
 
     private void loadPlaceDetail(int placeId) {
@@ -106,8 +147,13 @@ public class PlaceDetailActivity extends AppCompatActivity {
         
         String coords = getString(R.string.coordinates_format, place.getLatitude(), place.getLongitude());
         textDetailCoordinates.setText(coords);
-        
-        // Se utiliza el placeholder por defecto en imageDetail
+
+        Glide.with(this)
+                .load(place.getImageUrl())
+                .placeholder(R.drawable.ic_place_placeholder)
+                .error(R.drawable.ic_place_placeholder)
+                .centerCrop()
+                .into(imageDetail);
     }
 
     @Override

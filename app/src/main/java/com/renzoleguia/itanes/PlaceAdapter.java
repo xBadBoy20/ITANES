@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.renzoleguia.itanes.data.local.entity.PlaceEntity;
 
 import java.util.ArrayList;
@@ -72,7 +73,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         public void bind(PlaceEntity place, OnPlaceClickListener listener) {
             textPlaceName.setText(place.getName());
             textPlaceDescription.setText(place.getShortDescription());
-            // Se utiliza el placeholder definido por defecto en el XML para imagePlace
+
+            Glide.with(itemView.getContext())
+                    .load(place.getImageUrl())
+                    .placeholder(R.drawable.ic_place_placeholder)
+                    .error(R.drawable.ic_place_placeholder)
+                    .centerCrop()
+                    .into(imagePlace);
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

@@ -14,7 +14,8 @@
     <string name="label_address">Dirección</string>
     <string name="label_coordinates">Coordenadas</string>
     <string name="coordinates_format">Lat: %1$.6f, Long: %2$.6f</string>
-    <string name="button_favorite">Guardar en favoritos</string>
+    <string name="button_favorite">♡ Guardar en favoritos</string>
+    <string name="button_unfavorite">♥ Quitar de favoritos</string>
     <string name="button_share">Compartir</string>
     <string name="button_map">Ver en mapa</string>
 </resources>
