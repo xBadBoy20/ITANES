@@ -97,6 +97,13 @@ public class PlaceDetailActivity extends AppCompatActivity {
         
         buttonFavorite.setOnClickListener(v -> toggleFavorite());
         buttonShare.setOnClickListener(v -> sharePlace());
+        buttonMap.setOnClickListener(v -> openMap());
+    }
+
+    private void openMap() {
+        Intent intent = new Intent(this, com.renzoleguia.itanes.ui.map.MapActivity.class);
+        intent.putExtra(PlacesActivity.EXTRA_PLACE_ID, placeId);
+        startActivity(intent);
     }
 
     private void checkFavoriteStatus() {

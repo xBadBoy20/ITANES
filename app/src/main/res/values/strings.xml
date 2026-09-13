@@ -22,4 +22,10 @@
     <string name="title_share_chooser">Compartir lugar con…</string>
     <string name="share_text_format">%1$s\n%2$s\n\nDirección:\n%3$s\n\nCompartido desde %4$s.</string>
     <string name="error_no_share_app">No hay aplicaciones compatibles para compartir.</string>
+
+    <!-- MapActivity -->
+    <string name="title_map_activity">Ubicación en el Mapa</string>
+    <string name="error_invalid_coordinates">Coordenadas del lugar no válidas.</string>
+    <string name="error_map_load">Error al cargar el mapa.</string>
+    <string name="error_no_internet_map">Se requiere conexión a internet para ver el mapa completo.</string>
 </resources>
