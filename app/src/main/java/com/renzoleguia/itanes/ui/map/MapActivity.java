@@ -115,7 +115,7 @@ public class MapActivity extends AppCompatActivity {
         }
 
         mapView.getMapAsync(mapLibreMap -> {
-            mapLibreMap.setStyle("https://demotiles.maplibre.org/style.json", style -> {
+            mapLibreMap.setStyle("https://tiles.openfreemap.org/styles/liberty", style -> {
                 // Centrar cámara
                 CameraPosition position = new CameraPosition.Builder()
                         .target(new LatLng(lat, lng))
