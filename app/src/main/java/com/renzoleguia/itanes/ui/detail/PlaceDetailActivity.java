@@ -1,5 +1,7 @@
 package com.renzoleguia.itanes.ui.detail;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,6 +50,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
     private int placeId;
     private boolean isFavorite = false;
+    private PlaceEntity currentPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         buttonMap = findViewById(R.id.buttonMap);
         
         buttonFavorite.setOnClickListener(v -> toggleFavorite());
+        buttonShare.setOnClickListener(v -> sharePlace());
     }
 
     private void checkFavoriteStatus() {
@@ -140,6 +144,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
     }
 
     private void displayPlace(PlaceEntity place) {
+        this.currentPlace = place;
         textDetailName.setText(place.getName());
         textDetailShortDesc.setText(place.getShortDescription());
         textDetailDescription.setText(place.getDescription());
@@ -154,6 +159,30 @@ public class PlaceDetailActivity extends AppCompatActivity {
                 .error(R.drawable.ic_place_placeholder)
                 .centerCrop()
                 .into(imageDetail);
+    }
+
+    private void sharePlace() {
+        if (currentPlace == null) return;
+
+        String appName = getString(R.string.app_name);
+        String shareText = getString(R.string.share_text_format,
+                currentPlace.getName(),
+                currentPlace.getShortDescription(),
+                currentPlace.getAddress(),
+                appName);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, currentPlace.getName());
+        intent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+        Intent chooser = Intent.createChooser(intent, getString(R.string.title_share_chooser));
+        
+        try {
+            startActivity(chooser);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.error_no_share_app, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

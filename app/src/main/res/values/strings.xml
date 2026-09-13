@@ -18,4 +18,8 @@
     <string name="button_unfavorite">♥ Quitar de favoritos</string>
     <string name="button_share">Compartir</string>
     <string name="button_map">Ver en mapa</string>
+
+    <string name="title_share_chooser">Compartir lugar con…</string>
+    <string name="share_text_format">%1$s\n%2$s\n\nDirección:\n%3$s\n\nCompartido desde %4$s.</string>
+    <string name="error_no_share_app">No hay aplicaciones compatibles para compartir.</string>
 </resources>
