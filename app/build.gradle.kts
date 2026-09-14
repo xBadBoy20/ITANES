@@ -51,6 +51,10 @@ dependencies {
     // MapLibre
     implementation("org.maplibre.gl:android-sdk:11.8.0")
 
+    // Retrofit & Gson
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
