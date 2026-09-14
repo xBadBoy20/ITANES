@@ -95,6 +95,11 @@ public class PlaceDetailActivity extends AppCompatActivity {
         buttonShare = findViewById(R.id.buttonShare);
         buttonMap = findViewById(R.id.buttonMap);
         
+        android.widget.ImageButton buttonBack = findViewById(R.id.buttonBack);
+        if (buttonBack != null) {
+            buttonBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        }
+
         buttonFavorite.setOnClickListener(v -> toggleFavorite());
         buttonShare.setOnClickListener(v -> sharePlace());
         buttonMap.setOnClickListener(v -> openMap());

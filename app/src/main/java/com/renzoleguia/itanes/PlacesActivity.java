@@ -38,6 +38,11 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
             return insets;
         });
 
+        android.widget.ImageButton buttonBack = findViewById(R.id.buttonBack);
+        if (buttonBack != null) {
+            buttonBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        }
+
         // Initialize Repository & Executor
         AppDatabase db = AppDatabase.getInstance(this);
         repository = new PlaceRepository(db.placeDao());

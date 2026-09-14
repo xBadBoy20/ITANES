@@ -59,6 +59,11 @@ public class MapActivity extends AppCompatActivity {
         textMapPlaceAddress = findViewById(R.id.textMapPlaceAddress);
         mapView = findViewById(R.id.mapView);
         
+        android.widget.ImageButton buttonBack = findViewById(R.id.buttonBack);
+        if (buttonBack != null) {
+            buttonBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        }
+
         mapView.onCreate(savedInstanceState);
 
         AppDatabase db = AppDatabase.getInstance(this);
@@ -114,7 +119,25 @@ public class MapActivity extends AppCompatActivity {
             return;
         }
 
+        android.widget.ImageButton buttonZoomIn = findViewById(R.id.buttonZoomIn);
+        android.widget.ImageButton buttonZoomOut = findViewById(R.id.buttonZoomOut);
+
         mapView.getMapAsync(mapLibreMap -> {
+            mapLibreMap.setMinZoomPreference(3.0);
+            mapLibreMap.setMaxZoomPreference(19.0);
+
+            if (buttonZoomIn != null) {
+                buttonZoomIn.setOnClickListener(v -> {
+                    mapLibreMap.easeCamera(org.maplibre.android.camera.CameraUpdateFactory.zoomIn());
+                });
+            }
+
+            if (buttonZoomOut != null) {
+                buttonZoomOut.setOnClickListener(v -> {
+                    mapLibreMap.easeCamera(org.maplibre.android.camera.CameraUpdateFactory.zoomOut());
+                });
+            }
+
             mapLibreMap.setStyle("https://tiles.openfreemap.org/styles/liberty", style -> {
                 // Centrar cámara
                 CameraPosition position = new CameraPosition.Builder()
