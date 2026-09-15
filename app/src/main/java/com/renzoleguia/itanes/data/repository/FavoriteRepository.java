@@ -22,4 +22,8 @@ public class FavoriteRepository {
     public boolean isFavorite(int placeId) {
         return favoriteDao.isFavorite(placeId);
     }
+
+    public java.util.List<com.renzoleguia.itanes.data.local.entity.PlaceEntity> getFavoritePlaces() {
+        return favoriteDao.getFavoritePlaces();
+    }
 }

@@ -32,4 +32,14 @@
     <string name="content_description_back">Volver atrás</string>
     <string name="content_description_zoom_in">Acercar mapa</string>
     <string name="content_description_zoom_out">Alejar mapa</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_places">Lugares</string>
+    <string name="nav_favorites">Favoritos</string>
+
+    <!-- Favorites -->
+    <string name="title_favorites_activity">Lugares Favoritos</string>
+    <string name="favorites_empty_title">Aún no tienes lugares favoritos</string>
+    <string name="favorites_empty_subtitle">Guarda lugares para encontrarlos rápidamente aquí</string>
 </resources>

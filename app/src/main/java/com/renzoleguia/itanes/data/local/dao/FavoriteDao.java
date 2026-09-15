@@ -18,4 +18,7 @@ public interface FavoriteDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE placeId = :placeId)")
     boolean isFavorite(int placeId);
+
+    @Query("SELECT places.* FROM places INNER JOIN favorites ON places.id = favorites.placeId ORDER BY favorites.createdAt DESC")
+    java.util.List<com.renzoleguia.itanes.data.local.entity.PlaceEntity> getFavoritePlaces();
 }

@@ -34,14 +34,30 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_places), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0); // Bottom navigation will handle bottom inset
             return insets;
         });
 
-        android.widget.ImageButton buttonBack = findViewById(R.id.buttonBack);
-        if (buttonBack != null) {
-            buttonBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
-        }
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_places);
+        
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_places) {
+                return true;
+            } else if (itemId == R.id.nav_favorites) {
+                Intent intent = new Intent(this, com.renzoleguia.itanes.ui.favorites.FavoritesActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                return true;
+            }
+            return false;
+        });
 
         // Initialize Repository & Executor
         AppDatabase db = AppDatabase.getInstance(this);
