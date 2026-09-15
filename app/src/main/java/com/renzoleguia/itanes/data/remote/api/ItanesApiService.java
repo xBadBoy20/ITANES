@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface ItanesApiService {
 
-    @GET("v1/fad2b51e-da5c-4e91-b11b-22f6de580fa9")
+    @GET("xBadBoy20/98e4bfe2867cd65282c25b2dca58f5da/raw/places.json")
     Call<List<PlaceRemoteDto>> getPlaces();
 }

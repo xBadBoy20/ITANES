@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "https://mocki.io/";
+    // Cambia esto en RetrofitClient.java
+    private static final String BASE_URL = "https://gist.githubusercontent.com/";
     private static Retrofit retrofit = null;
 
     private RetrofitClient() {

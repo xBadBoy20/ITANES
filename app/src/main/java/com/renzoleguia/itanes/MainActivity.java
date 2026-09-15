@@ -39,35 +39,7 @@ public class MainActivity extends AppCompatActivity {
         PlaceDataSeeder seeder = new PlaceDataSeeder(repository);
         seeder.seedData();
 
-        // Prueba de consumo de API (Mock) para validación en esta Tanda
-        testRemoteApi();
-    }
-
-    private void testRemoteApi() {
-        com.renzoleguia.itanes.data.remote.api.ItanesApiService apiService = 
-                com.renzoleguia.itanes.data.remote.retrofit.RetrofitClient.getApiService();
-        
-        apiService.getPlaces().enqueue(new retrofit2.Callback<java.util.List<com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto>>() {
-            @Override
-            public void onResponse(retrofit2.Call<java.util.List<com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto>> call, 
-                                   retrofit2.Response<java.util.List<com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    java.util.List<com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto> places = response.body();
-                    android.util.Log.d("ITANES_API", "Respuesta recibida correctamente");
-                    android.util.Log.d("ITANES_API", "Total lugares: " + places.size());
-                    
-                    for (com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto place : places) {
-                        android.util.Log.d("ITANES_API", place.getId() + " - " + place.getName());
-                    }
-                } else {
-                    android.util.Log.e("ITANES_API", "Error HTTP en la respuesta: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<java.util.List<com.renzoleguia.itanes.data.remote.dto.PlaceRemoteDto>> call, Throwable t) {
-                android.util.Log.e("ITANES_API", "Error de red o conexión: " + t.getMessage());
-            }
-        });
+        // Iniciar sincronización de lugares desde la API a Room
+        repository.syncPlaces();
     }
 }

@@ -57,6 +57,12 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
         loadPlaces();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPlaces();
+    }
+
     private void loadPlaces() {
         executorService.execute(() -> {
             List<PlaceEntity> places = repository.getAllPlaces();
