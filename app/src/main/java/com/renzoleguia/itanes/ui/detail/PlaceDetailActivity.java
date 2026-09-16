@@ -2,6 +2,7 @@ package com.renzoleguia.itanes.ui.detail;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
     
     private Button buttonFavorite;
     private Button buttonShare;
+    private Button buttonDirections;
     private Button buttonMap;
 
     private int placeId;
@@ -93,6 +95,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         
         buttonFavorite = findViewById(R.id.buttonFavorite);
         buttonShare = findViewById(R.id.buttonShare);
+        buttonDirections = findViewById(R.id.buttonDirections);
         buttonMap = findViewById(R.id.buttonMap);
         
         android.widget.ImageButton buttonBack = findViewById(R.id.buttonBack);
@@ -102,7 +105,35 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
         buttonFavorite.setOnClickListener(v -> toggleFavorite());
         buttonShare.setOnClickListener(v -> sharePlace());
+        buttonDirections.setOnClickListener(v -> openDirections());
         buttonMap.setOnClickListener(v -> openMap());
+    }
+
+    private void openDirections() {
+        if (currentPlace == null) return;
+
+        double latitude = currentPlace.getLatitude();
+        double longitude = currentPlace.getLongitude();
+
+        // Validar coordenadas (rango estándar)
+        if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+            Toast.makeText(this, R.string.error_invalid_coordinates, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Construir URL de Google Maps para direcciones
+        // destination=lat,long&travelmode=driving
+        String uriString = String.format(Locale.US,
+                "https://www.google.com/maps/dir/?api=1&destination=%f,%f&travelmode=driving",
+                latitude, longitude);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
+
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.error_no_navigation_app, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openMap() {
