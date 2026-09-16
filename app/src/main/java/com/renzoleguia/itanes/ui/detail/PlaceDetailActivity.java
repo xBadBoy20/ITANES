@@ -195,6 +195,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         
         String coords = getString(R.string.coordinates_format, place.getLatitude(), place.getLongitude());
         textDetailCoordinates.setText(coords);
+        imageDetail.setContentDescription(place.getName());
 
         Glide.with(this)
                 .load(place.getImageUrl())

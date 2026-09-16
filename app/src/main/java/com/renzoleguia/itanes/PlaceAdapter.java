@@ -73,6 +73,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         public void bind(PlaceEntity place, OnPlaceClickListener listener) {
             textPlaceName.setText(place.getName());
             textPlaceDescription.setText(place.getShortDescription());
+            imagePlace.setContentDescription(place.getName());
 
             Glide.with(itemView.getContext())
                     .load(place.getImageUrl())

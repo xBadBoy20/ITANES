@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.renzoleguia.itanes.MainActivity;
@@ -57,7 +59,13 @@ public class FavoritesActivity extends AppCompatActivity implements PlaceAdapter
 
         placeAdapter = new PlaceAdapter(this);
         recyclerViewFavorites.setAdapter(placeAdapter);
-        recyclerViewFavorites.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
+        
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        if (isTablet) {
+            recyclerViewFavorites.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            recyclerViewFavorites.setLayoutManager(new LinearLayoutManager(this));
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.nav_favorites);

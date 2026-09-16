@@ -8,6 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
 import android.widget.ProgressBar;
@@ -79,6 +81,13 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
         // Setup RecyclerView
         placeAdapter = new PlaceAdapter(this);
         recyclerView.setAdapter(placeAdapter);
+
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        if (isTablet) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
 
         // Fetch data
         loadPlaces();

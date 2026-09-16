@@ -109,6 +109,7 @@ public class MapActivity extends AppCompatActivity {
     private void setupMapForPlace(PlaceEntity place) {
         textMapPlaceName.setText(place.getName());
         textMapPlaceAddress.setText(place.getAddress());
+        mapView.setContentDescription(getString(R.string.title_map_activity) + ": " + place.getName());
 
         double lat = place.getLatitude();
         double lng = place.getLongitude();
