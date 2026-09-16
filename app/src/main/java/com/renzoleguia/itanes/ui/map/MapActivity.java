@@ -71,8 +71,8 @@ public class MapActivity extends AppCompatActivity {
         executorService = Executors.newSingleThreadExecutor();
 
         placeId = getIntent().getIntExtra(PlacesActivity.EXTRA_PLACE_ID, -1);
-        if (placeId == -1) {
-            Toast.makeText(this, R.string.error_invalid_id, Toast.LENGTH_SHORT).show();
+        if (placeId <= 0) {
+            Toast.makeText(this, R.string.error_load_detail, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -113,9 +113,11 @@ public class MapActivity extends AppCompatActivity {
         double lat = place.getLatitude();
         double lng = place.getLongitude();
 
-        // Validar coordenadas
-        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        // Validar coordenadas (rango estándar)
+        if (lat < -90 || lat > 90 || lng < -180 || lng > 180 || (lat == 0 && lng == 0)) {
+            android.util.Log.e("ITANES_MAP", "Coordenadas inválidas para: " + place.getName());
             Toast.makeText(this, R.string.error_invalid_coordinates, Toast.LENGTH_LONG).show();
+            // No finalizamos la Activity para que el usuario pueda ver el nombre/dirección aunque el mapa no cargue
             return;
         }
 

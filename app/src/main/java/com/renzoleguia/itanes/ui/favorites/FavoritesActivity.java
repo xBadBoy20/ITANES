@@ -33,6 +33,7 @@ public class FavoritesActivity extends AppCompatActivity implements PlaceAdapter
     private ExecutorService executorService;
     private LinearLayout layoutEmptyFavorites;
     private RecyclerView recyclerViewFavorites;
+    private android.widget.ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class FavoritesActivity extends AppCompatActivity implements PlaceAdapter
 
         layoutEmptyFavorites = findViewById(R.id.layoutEmptyFavorites);
         recyclerViewFavorites = findViewById(R.id.recyclerViewFavorites);
+        progressBar = findViewById(R.id.progressBarFavorites);
 
         placeAdapter = new PlaceAdapter(this);
         recyclerViewFavorites.setAdapter(placeAdapter);
@@ -88,19 +90,32 @@ public class FavoritesActivity extends AppCompatActivity implements PlaceAdapter
     }
 
     private void loadFavorites() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+        if (layoutEmptyFavorites != null) layoutEmptyFavorites.setVisibility(View.GONE);
+
         executorService.execute(() -> {
-            List<PlaceEntity> favoritePlaces = favoriteRepository.getFavoritePlaces();
-            
-            runOnUiThread(() -> {
-                if (favoritePlaces == null || favoritePlaces.isEmpty()) {
-                    recyclerViewFavorites.setVisibility(View.GONE);
-                    layoutEmptyFavorites.setVisibility(View.VISIBLE);
-                } else {
-                    recyclerViewFavorites.setVisibility(View.VISIBLE);
-                    layoutEmptyFavorites.setVisibility(View.GONE);
-                    placeAdapter.setPlaces(favoritePlaces);
-                }
-            });
+            try {
+                List<PlaceEntity> favoritePlaces = favoriteRepository.getFavoritePlaces();
+                
+                runOnUiThread(() -> {
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    
+                    if (favoritePlaces == null || favoritePlaces.isEmpty()) {
+                        if (recyclerViewFavorites != null) recyclerViewFavorites.setVisibility(View.GONE);
+                        if (layoutEmptyFavorites != null) layoutEmptyFavorites.setVisibility(View.VISIBLE);
+                    } else {
+                        if (recyclerViewFavorites != null) recyclerViewFavorites.setVisibility(View.VISIBLE);
+                        if (layoutEmptyFavorites != null) layoutEmptyFavorites.setVisibility(View.GONE);
+                        placeAdapter.setPlaces(favoritePlaces);
+                    }
+                });
+            } catch (Exception e) {
+                android.util.Log.e("ITANES_ROOM", "Error al cargar favoritos: " + e.getMessage());
+                runOnUiThread(() -> {
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    if (layoutEmptyFavorites != null) layoutEmptyFavorites.setVisibility(View.VISIBLE);
+                });
+            }
         });
     }
 

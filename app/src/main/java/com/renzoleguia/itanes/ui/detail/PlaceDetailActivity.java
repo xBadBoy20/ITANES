@@ -75,8 +75,8 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
         placeId = getIntent().getIntExtra(PlacesActivity.EXTRA_PLACE_ID, -1);
         
-        if (placeId == -1) {
-            Toast.makeText(this, R.string.error_invalid_id, Toast.LENGTH_SHORT).show();
+        if (placeId <= 0) {
+            Toast.makeText(this, R.string.error_load_detail, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -132,7 +132,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, R.string.error_no_navigation_app, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_intent_app, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,7 +224,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         try {
             startActivity(chooser);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, R.string.error_no_share_app, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_intent_app, Toast.LENGTH_SHORT).show();
         }
     }
 

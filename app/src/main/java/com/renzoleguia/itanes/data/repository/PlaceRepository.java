@@ -29,7 +29,12 @@ public class PlaceRepository {
         this.executor = Executors.newSingleThreadExecutor();
     }
 
-    public void syncPlaces() {
+    public interface SyncCallback {
+        void onSuccess();
+        void onError(String message);
+    }
+
+    public void syncPlaces(SyncCallback callback) {
         Log.d("ITANES_SYNC", "Iniciando sincronización");
         apiService.getPlaces().enqueue(new Callback<List<PlaceRemoteDto>>() {
             @Override
@@ -45,21 +50,27 @@ public class PlaceRepository {
                                 placeDao.insertAll(entities);
                                 Log.d("ITANES_SYNC", entities.size() + " lugares guardados en Room");
                                 Log.d("ITANES_SYNC", "Sincronización completada");
+                                if (callback != null) callback.onSuccess();
                             } catch (Exception e) {
                                 Log.e("ITANES_SYNC", "Error al guardar en Room: " + e.getMessage());
+                                if (callback != null) callback.onError("Error al guardar datos locales.");
                             }
                         });
                     } else {
-                        Log.d("ITANES_SYNC", "La lista recibida está vacía.");
+                        Log.d("ITANES_SYNC", "Respuesta vacía, se conservan datos locales");
+                        if (callback != null) callback.onSuccess();
                     }
                 } else {
-                    Log.e("ITANES_SYNC", "Error HTTP en sincronización: " + (response != null ? response.code() : "null"));
+                    String errorMsg = "Error HTTP " + (response != null ? response.code() : "unknown");
+                    Log.e("ITANES_SYNC", errorMsg);
+                    if (callback != null) callback.onError(errorMsg);
                 }
             }
 
             @Override
             public void onFailure(Call<List<PlaceRemoteDto>> call, Throwable t) {
                 Log.e("ITANES_SYNC", "Error de red en sincronización: " + t.getMessage());
+                if (callback != null) callback.onError("Sin conexión. Mostrando datos guardados.");
             }
         });
     }

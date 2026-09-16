@@ -9,6 +9,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.LinearLayout;
+
 import com.renzoleguia.itanes.data.local.database.AppDatabase;
 import com.renzoleguia.itanes.data.local.entity.PlaceEntity;
 import com.renzoleguia.itanes.data.repository.PlaceRepository;
@@ -25,6 +29,9 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
     private PlaceAdapter placeAdapter;
     private PlaceRepository repository;
     private ExecutorService executorService;
+    private ProgressBar progressBar;
+    private LinearLayout viewEmpty;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +71,12 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
         repository = new PlaceRepository(db.placeDao());
         executorService = Executors.newSingleThreadExecutor();
 
+        // Initialize Views
+        progressBar = findViewById(R.id.progressBarPlaces);
+        viewEmpty = findViewById(R.id.viewEmptyPlaces);
+        recyclerView = findViewById(R.id.recyclerViewPlaces);
+
         // Setup RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewPlaces);
         placeAdapter = new PlaceAdapter(this);
         recyclerView.setAdapter(placeAdapter);
 
@@ -80,13 +91,32 @@ public class PlacesActivity extends AppCompatActivity implements PlaceAdapter.On
     }
 
     private void loadPlaces() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+        if (viewEmpty != null) viewEmpty.setVisibility(View.GONE);
+
         executorService.execute(() -> {
-            List<PlaceEntity> places = repository.getAllPlaces();
-            
-            // Update UI on main thread
-            runOnUiThread(() -> {
-                placeAdapter.setPlaces(places);
-            });
+            try {
+                List<PlaceEntity> places = repository.getAllPlaces();
+                
+                runOnUiThread(() -> {
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    
+                    if (places == null || places.isEmpty()) {
+                        if (viewEmpty != null) viewEmpty.setVisibility(View.VISIBLE);
+                        if (recyclerView != null) recyclerView.setVisibility(View.GONE);
+                    } else {
+                        if (viewEmpty != null) viewEmpty.setVisibility(View.GONE);
+                        if (recyclerView != null) recyclerView.setVisibility(View.VISIBLE);
+                        placeAdapter.setPlaces(places);
+                    }
+                });
+            } catch (Exception e) {
+                android.util.Log.e("ITANES_ROOM", "Error al consultar lugares: " + e.getMessage());
+                runOnUiThread(() -> {
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    if (viewEmpty != null) viewEmpty.setVisibility(View.VISIBLE);
+                });
+            }
         });
     }
 

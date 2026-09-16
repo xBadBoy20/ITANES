@@ -44,4 +44,12 @@
     <string name="title_favorites_activity">Lugares Favoritos</string>
     <string name="favorites_empty_title">Aún no tienes lugares favoritos</string>
     <string name="favorites_empty_subtitle">Guarda lugares para encontrarlos rápidamente aquí</string>
+
+    <!-- UI States & Errors -->
+    <string name="places_empty_title">No hay lugares disponibles</string>
+    <string name="places_empty_subtitle">Intenta nuevamente cuando tengas conexión a Internet.</string>
+    <string name="error_sync_offline">Sin conexión. Mostrando datos guardados.</string>
+    <string name="error_load_detail">No se pudo cargar la información del lugar.</string>
+    <string name="error_no_intent_app">No se encontró una aplicación compatible.</string>
+    <string name="error_share_failed">Error al intentar compartir.</string>
 </resources>

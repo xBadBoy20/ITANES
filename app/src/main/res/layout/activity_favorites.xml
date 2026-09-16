@@ -36,6 +36,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitleFavorites"
         tools:listitem="@layout/item_place" />
 
+    <ProgressBar
+        android:id="@+id/progressBarFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleFavorites" />
+
     <LinearLayout
         android:id="@+id/layoutEmptyFavorites"
         android:layout_width="wrap_content"

@@ -64,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
         seeder.seedData();
 
         // Iniciar sincronización de lugares desde la API a Room
-        repository.syncPlaces();
+        repository.syncPlaces(new PlaceRepository.SyncCallback() {
+            @Override
+            public void onSuccess() {
+                // Silencioso
+            }
+
+            @Override
+            public void onError(String message) {
+                runOnUiThread(() -> {
+                    if (message.contains("Sin conexión")) {
+                        android.widget.Toast.makeText(MainActivity.this, message, android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }
