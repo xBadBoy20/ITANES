@@ -2,14 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/nav_home" />
+        android:icon="@drawable/ic_castle_tower"
+        android:title="Inicio" />
     <item
         android:id="@+id/nav_places"
-        android:icon="@drawable/ic_place"
-        android:title="@string/nav_places" />
+        android:icon="@drawable/ic_compass"
+        android:title="Explorar" />
     <item
         android:id="@+id/nav_favorites"
-        android:icon="@drawable/ic_favorite"
-        android:title="@string/nav_favorites" />
+        android:icon="@drawable/ic_bookmark_star"
+        android:title="Favoritos" />
+    <!-- Added Más but with a placeholder ID if needed, but not handled in Java -->
+    <item
+        android:id="@+id/nav_mas"
+        android:icon="@drawable/ic_shield_info"
+        android:title="Más" />
 </menu>

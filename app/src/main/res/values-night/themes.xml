@@ -1,7 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme for Night Mode. -->
     <style name="Base.Theme.ITANES" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Using dark navy for dark mode backgrounds -->
+        <item name="colorPrimary">@color/itanes_primary_container</item>
+        <item name="colorPrimaryContainer">@color/itanes_primary</item>
+        <item name="colorOnPrimary">@color/itanes_text_on_dark</item>
+
+        <item name="colorSecondary">@color/itanes_gold</item>
+
+        <item name="android:windowBackground">@color/itanes_dark_navy</item>
+        <item name="android:statusBarColor">@color/itanes_dark_navy</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

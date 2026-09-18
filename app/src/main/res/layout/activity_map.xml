@@ -7,65 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.map.MapActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerMap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        android:elevation="4dp"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/buttonBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/content_description_back"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textMapTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/title_map_activity"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonBack"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textMapPlaceName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textMapTitle"
-            app:layout_constraintTop_toBottomOf="@id/textMapTitle"
-            tools:text="Ciudad Sagrada de Caral" />
-
-        <TextView
-            android:id="@+id/textMapPlaceAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="?attr/textAppearanceBodySmall"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textMapPlaceName"
-            app:layout_constraintTop_toBottomOf="@id/textMapPlaceName"
-            tools:text="Dirección del lugar" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- MapView in Background -->
     <org.maplibre.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="0dp"
@@ -73,39 +15,209 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerMap" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Buscador Superior Flotante -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/headerMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#E6FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/buttonBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_logo_container"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/itanes_text_primary" />
+
+            <TextView
+                android:id="@+id/textMapSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:hint="Explorar cartografía..."
+                android:textColor="@color/itanes_text_primary"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_logo_container"
+                android:src="@drawable/ic_database"
+                app:tint="@color/itanes_primary" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Controles de Zoom -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:background="?attr/colorSurface"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_logo_container"
+        android:backgroundTint="@color/itanes_surface_low"
         android:elevation="4dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSheetCard"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
             android:id="@+id/buttonZoomIn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/content_description_zoom_in"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"
+            app:tint="@color/itanes_primary" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant" />
+            android:background="@color/itanes_surface_dim" />
 
         <ImageButton
             android:id="@+id/buttonZoomOut"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/content_description_zoom_out"
-            android:src="@drawable/ic_remove" />
+            android:src="@drawable/ic_remove"
+            app:tint="@color/itanes_primary" />
     </LinearLayout>
+
+    <!-- Tarjeta Inferior de Información Rápida -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSheetCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/itanes_surface"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="12dp">
+
+            <!-- Handle indicator -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@color/itanes_surface_dim"
+                android:backgroundTint="#B0B0B0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="14dp"
+                    app:strokeColor="@color/itanes_surface_dim"
+                    app:strokeWidth="1dp"
+                    style="@style/ShapeAppearance.ITANES.MedievalCard">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textMapPlaceName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/playfair_display"
+                        android:textColor="@color/itanes_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Basílica de San Francisco" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_logo_container"
+                        android:backgroundTint="@color/itanes_surface_low"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="Patrimonio Cultural"
+                        android:textColor="@color/itanes_primary"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textMapPlaceAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/jakarta_sans"
+                        android:textColor="@color/itanes_text_secondary"
+                        android:textSize="12sp"
+                        tools:text="Abierto hasta 18:00 hrs" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:text="Cómo Llegar"
+                    android:textColor="@color/itanes_primary"
+                    app:strokeColor="@color/itanes_surface_dim" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/itanes_primary"
+                    android:text="Ver Detalle →"
+                    android:textColor="@color/itanes_text_on_dark" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

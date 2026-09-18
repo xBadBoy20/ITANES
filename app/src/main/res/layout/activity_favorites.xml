@@ -5,35 +5,106 @@
     android:id="@+id/main_favorites"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/itanes_background"
     tools:context=".ui.favorites.FavoritesActivity">
 
-    <TextView
-        android:id="@+id/textTitleFavorites"
+    <!-- Banner de Sincronización Room DB -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/syncBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/itanes_surface_low"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#330D233A"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_database"
+                app:tint="@color/itanes_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Sincronización Room SQLite Activa — Mapas, fichas heráldicas y audios listos para transitar el damero sin cobertura móvil"
+                android:textColor="@color/itanes_text_primary"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Barra de Filtros (Chips) -->
+    <HorizontalScrollView
+        android:id="@+id/chipScrollFavorites"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/title_favorites_activity"
-        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/syncBanner">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todos"
+                android:textColor="@color/itanes_text_on_dark"
+                app:chipBackgroundColor="@color/itanes_primary"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Con audio-guía"
+                android:textColor="@color/itanes_text_primary"
+                app:chipBackgroundColor="@color/itanes_surface_low"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visitados"
+                android:textColor="@color/itanes_text_primary"
+                app:chipBackgroundColor="@color/itanes_surface_low"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavorites"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="24dp"
+        android:paddingBottom="88dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitleFavorites"
+        app:layout_constraintTop_toBottomOf="@+id/chipScrollFavorites"
         tools:listitem="@layout/item_place" />
 
     <ProgressBar
@@ -44,50 +115,88 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitleFavorites" />
+        app:layout_constraintTop_toBottomOf="@+id/chipScrollFavorites" />
 
+    <!-- Empty State -->
     <LinearLayout
         android:id="@+id/layoutEmptyFavorites"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="32dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitleFavorites">
+        app:layout_constraintTop_toBottomOf="@+id/chipScrollFavorites">
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_circle_surface"
+            android:backgroundTint="@color/itanes_surface_low" />
 
         <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:contentDescription="@string/favorites_empty_title"
-            android:src="@drawable/ic_favorite_border"
-            app:tint="?attr/colorOutline" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="-64dp"
+            android:src="@drawable/ic_compass"
+            app:tint="@color/itanes_primary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/favorites_empty_title"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/playfair_display"
+            android:text="Aún no tienes lugares favoritos"
+            android:textColor="@color/itanes_text_primary"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/favorites_empty_subtitle"
-            android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorOnSurfaceVariant" />
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/jakarta_sans"
+            android:gravity="center"
+            android:text="Explora el mapa virreinal y pulsa el icono de escudo o estrella para salvaguardar casonas y templos en tu bitácora personal."
+            android:textColor="@color/itanes_text_secondary"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/itanes_primary"
+            android:text="Abrir Mapa de Lima"
+            android:textColor="@color/itanes_text_on_dark" />
     </LinearLayout>
+
+    <!-- Botón Inferior Flotante de Ruta -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabRoute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Iniciar Recorrido de Favoritos • 3 Puntos"
+        android:textColor="@color/itanes_text_on_dark"
+        app:backgroundTint="@color/itanes_primary"
+        app:icon="@drawable/ic_castle_tower"
+        app:iconTint="@color/itanes_gold"
+        app:shapeAppearance="@style/ShapeAppearance.ITANES.Pill"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
+        app:itemActiveIndicatorStyle="@style/Widget.Material3.BottomNavigationView.ActiveIndicator"
+        app:itemIconTint="@color/nav_item_selector"
+        app:itemTextColor="@color/nav_item_selector"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

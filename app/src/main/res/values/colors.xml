@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores Principales (Azul Virreinal & Sombras) -->
+    <color name="itanes_primary">#0D233A</color>
+    <color name="itanes_primary_container">#1A3B5C</color>
+    <color name="itanes_primary_variant">#091828</color>
+    <color name="itanes_dark_navy">#0A192F</color>
+
+    <!-- Acentos Dorados y Heráldicos -->
+    <color name="itanes_gold">#D4AF37</color>
+    <color name="itanes_gold_light">#F5E6BE</color>
+    <color name="itanes_gold_dark">#AA820A</color>
+
+    <!-- Superficies Claras (Light Glass & Pergamino) -->
+    <color name="itanes_background">#F8F9FF</color>
+    <color name="itanes_surface">#FFFFFF</color>
+    <color name="itanes_surface_low">#EEF4FF</color>
+    <color name="itanes_surface_container">#E3ECF8</color>
+    <color name="itanes_surface_dim">#CFDBED</color>
+
+    <!-- Tipografía y Contrastes WCAG AA -->
+    <color name="itanes_text_primary">#0D233A</color>
+    <color name="itanes_text_secondary">#475569</color>
+    <color name="itanes_text_muted">#64748B</color>
+    <color name="itanes_text_on_dark">#FFFFFF</color>
+
+    <!-- Glassmorphism & Translucidez -->
+    <color name="itanes_glass_stroke">#33FFFFFF</color>
+    <color name="itanes_glass_white_85">#D9FFFFFF</color>
+    <color name="itanes_glass_dark_85">#D90D233A</color>
+    <color name="itanes_tag_badge_bg">#EEF4FF</color>
+
+    <!-- Standard fallbacks -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Nav item selector color placeholder if missing -->
+    <color name="nav_item_selector_inactive">#64748B</color>
 </resources>

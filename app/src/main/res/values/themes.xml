@@ -1,9 +1,29 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ITANES" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/itanes_primary</item>
+        <item name="colorPrimaryContainer">@color/itanes_primary_container</item>
+        <item name="colorOnPrimary">@color/itanes_text_on_dark</item>
+
+        <item name="colorSecondary">@color/itanes_gold</item>
+        <item name="colorSecondaryContainer">@color/itanes_gold_light</item>
+
+        <item name="android:windowBackground">@color/itanes_background</item>
+        <item name="android:statusBarColor">@color/itanes_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.ITANES" parent="Base.Theme.ITANES" />
+
+    <!-- Estilo de Esquinas Virreinales / Biseladas para Tarjetas -->
+    <style name="ShapeAppearance.ITANES.MedievalCard" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">14dp</item>
+    </style>
+
+    <!-- Estilo Suave Redondeado para Chips y Botones Glass -->
+    <style name="ShapeAppearance.ITANES.Pill" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
 </resources>

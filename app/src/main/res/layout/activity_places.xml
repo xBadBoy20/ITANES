@@ -5,50 +5,114 @@
     android:id="@+id/main_places"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/itanes_background"
     tools:context=".PlacesActivity">
 
-    <TextView
-        android:id="@+id/textTitlePlaces"
+    <!-- Buscador Superior -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/title_places_activity"
-        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:boxBackgroundColor="@color/itanes_surface_low"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconDrawable="@drawable/ic_shield_info"
+        app:endIconMode="custom"
+        app:endIconTint="@color/itanes_primary"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_compass"
+        app:startIconTint="@color/itanes_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textSubtitlePlaces"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar patrimonio virreinal..."
+            android:padding="12dp"
+            android:textColor="@color/itanes_text_primary"
+            android:textColorHint="@color/itanes_text_muted"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Barra de Chips Filtrables -->
+    <HorizontalScrollView
+        android:id="@+id/chipScroll"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/places_subtitle"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="?attr/colorOnSurfaceVariant"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitlePlaces" />
+        app:layout_constraintTop_toBottomOf="@+id/searchLayout">
 
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todas las épocas"
+                android:textColor="@color/itanes_text_on_dark"
+                app:chipBackgroundColor="@color/itanes_primary"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Barroco"
+                android:textColor="@color/itanes_text_primary"
+                app:chipBackgroundColor="@color/itanes_surface_low"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Virreinal"
+                android:textColor="@color/itanes_text_primary"
+                app:chipBackgroundColor="@color/itanes_surface_low"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modo Offline"
+                android:textColor="@color/itanes_gold"
+                app:chipBackgroundColor="#26D4AF37"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="0dp"
+                app:chipIcon="@drawable/ic_database"
+                app:chipIconTint="@color/itanes_gold" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Lista -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPlaces"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:paddingBottom="24dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSubtitlePlaces"
+        app:layout_constraintTop_toBottomOf="@+id/chipScroll"
         tools:listitem="@layout/item_place" />
 
     <ProgressBar
@@ -59,8 +123,9 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSubtitlePlaces" />
+        app:layout_constraintTop_toBottomOf="@+id/chipScroll" />
 
+    <!-- Empty State -->
     <LinearLayout
         android:id="@+id/viewEmptyPlaces"
         android:layout_width="0dp"
@@ -72,12 +137,12 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSubtitlePlaces">
+        app:layout_constraintTop_toBottomOf="@+id/chipScroll">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/places_empty_title"
+            android:text="No se encontraron lugares"
             android:textAppearance="?attr/textAppearanceTitleLarge"
             android:textStyle="bold" />
 
@@ -86,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@string/places_empty_subtitle"
+            android:text="Intenta cambiar los filtros"
             android:textAppearance="?attr/textAppearanceBodyMedium" />
 
     </LinearLayout>
@@ -96,6 +161,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
+        app:itemActiveIndicatorStyle="@style/Widget.Material3.BottomNavigationView.ActiveIndicator"
+        app:itemIconTint="@color/nav_item_selector"
+        app:itemTextColor="@color/nav_item_selector"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

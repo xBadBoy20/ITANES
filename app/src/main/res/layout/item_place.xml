@@ -4,25 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="3dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/itanes_surface_dim"
+    style="?attr/materialCardViewElevatedStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
         <ImageView
             android:id="@+id/imagePlace"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="210dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_place_placeholder"
-            android:contentDescription="@string/place_image_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <!-- Top Left Badge: Era -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_logo_container"
+            android:backgroundTint="#D90D233A"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="Siglo XVI • 1546"
+            android:textColor="@color/itanes_text_on_dark"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Top Right Badge: Bookmark -->
+        <ImageButton
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_logo_container"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/ic_bookmark_star"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/itanes_gold" />
+
+        <!-- Bottom Left Badge: Category -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_logo_container"
+            android:backgroundTint="#D91A3B5C"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="CONVENTO &#38; CRIPTAS"
+            android:textColor="@color/itanes_text_on_dark"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imagePlace"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Bottom Right Badge: Rating -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_logo_container"
+            android:backgroundTint="#D90D233A"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="★ 4.9"
+            android:textColor="@color/itanes_gold"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imagePlace"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textPlaceName"
@@ -31,12 +99,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:fontFamily="@font/playfair_display"
+            android:textColor="@color/itanes_text_primary"
+            android:textSize="19sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagePlace"
-            tools:text="Plaza Mayor de Cuzco" />
+            tools:text="Basílica de San Francisco y Catacumbas" />
 
         <TextView
             android:id="@+id/textPlaceDescription"
@@ -45,16 +115,69 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:ellipsize="end"
-            android:maxLines="3"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/jakarta_sans"
+            android:maxLines="2"
+            android:textColor="@color/itanes_text_secondary"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textPlaceName"
-            tools:text="El corazón histórico y punto cero de la ciudad." />
+            tools:text="Descubre las criptas secretas bajo el convento virreinal más importante de Lima." />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonExploreCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPlaceDescription">
+
+            <!-- Placeholder for Mic and Offline icons -->
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_shield_info"
+                app:tint="@color/itanes_text_muted" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_database"
+                app:tint="@color/itanes_text_muted" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Audio y Offline"
+                android:textColor="@color/itanes_text_muted"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/buttonExploreCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_logo_container"
+            android:backgroundTint="@color/itanes_surface_low"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="Explorar →"
+            android:textColor="@color/itanes_primary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPlaceDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
